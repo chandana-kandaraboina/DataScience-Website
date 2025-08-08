@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DataScience Hub - Main Page</title>
+  <style>
+    /* Background image and overlay */
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      overflow: hidden;
+    }
+    body {
+      /* Replace this URL with any professional data science or tech background image */
+      background: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+    }
+    /* Overlay for readability */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 0;
+    }
+
+    /* Centered container */
+    .container {
+      position: relative;
+      z-index: 1;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    h1 {
+      font-size: 4rem;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+    }
+    p {
+      font-size: 1.5rem;
+      margin-bottom: 50px;
+      max-width: 600px;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+    }
+
+    .button-container {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      border: none;
+      padding: 18px 50px;
+      color: white;
+      font-size: 1.25rem;
+      font-weight: 700;
+      border-radius: 40px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(37, 117, 252, 0.6);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      user-select: none;
+    }
+    .btn:hover, .btn:focus {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(37, 117, 252, 0.9);
+      outline: none;
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2.8rem;
+      }
+      p {
+        font-size: 1.1rem;
+      }
+      .btn {
+        padding: 14px 30px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to DataScience Hub</h1>
+    <p>Your one-stop platform for data science jobs, courses, and updates.</p>
+    <div class="button-container">
+      <a href="login.html" class="btn" role="button">Login</a>
+      <a href="signin.html" class="btn" role="button">Sign In</a>
+    </div>
+  </div>
+</body>
+</html>
