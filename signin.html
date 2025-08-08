@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign Up - DataScience Hub</title>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      position: relative;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: 0;
+    }
+    .container {
+      position: relative;
+      z-index: 1;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .signup-box {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 40px 50px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(37, 117, 252, 0.7);
+      width: 400px;
+      max-width: 90%;
+    }
+    h2 {
+      margin-bottom: 30px;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    input[type="text"], input[type="email"], input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+      outline: 2px solid #2575fc;
+      background: #eaf2ff;
+      color: #000;
+    }
+    .btn {
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 40px;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(37, 117, 252, 0.6);
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .btn:hover, .btn:focus {
+      background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+      transform: translateY(-3px);
+      outline: none;
+    }
+    .bottom-text {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+    .bottom-text a {
+      color: #2575fc;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .bottom-text a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form class="signup-box" id="signupForm">
+      <h2>Create an Account</h2>
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" required placeholder="Choose a username" />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required placeholder="Enter your email" />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required placeholder="Create a password" />
+
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password" />
+
+      <button type="submit" class="btn">Sign Up</button>
+
+      <div class="bottom-text">
+        Already have an account? <a href="login.html">Login</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const username = e.target.username.value.trim();
+      const email = e.target.email.value.trim();
+      const password = e.target.password.value.trim();
+      const confirmPassword = e.target.confirmPassword.value.trim();
+
+      if(password !== confirmPassword) {
+        alert("Passwords do not match. Please try again.");
+        return;
+      }
+
+      // Simple mock registration logic
+      alert(`Registration successful! Welcome, ${username}. Please login.`);
+      window.location.href = "login.html";
+    });
+  </script>
+</body>
+</html>
