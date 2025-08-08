@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard - DataScience Hub</title>
+  <style>
+    body, html {
+      margin: 0; padding: 0; height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      position: relative;
+      scroll-behavior: smooth;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      z-index: 0;
+    }
+    /* Navbar */
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(30, 30, 40, 0.9);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.7);
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      padding: 15px 0;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 30px;
+    }
+    nav ul li {
+      display: inline;
+    }
+    nav ul li a {
+      color: #66ccff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 6px 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    nav ul li a:hover,
+    nav ul li a:focus {
+      background-color: #2575fc;
+      color: #fff;
+      outline: none;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    header h1 {
+      font-size: 3rem;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+    }
+    header p {
+      font-size: 1.2rem;
+      color: #ccc;
+      margin-top: 5px;
+    }
+    section {
+      background: rgba(30, 30, 40, 0.8);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 40px;
+      box-shadow: 0 0 15px rgba(37, 117, 252, 0.6);
+    }
+    section h2 {
+      margin-bottom: 25px;
+      border-bottom: 2px solid #2575fc;
+      padding-bottom: 10px;
+      font-weight: 700;
+      font-size: 1.8rem;
+    }
+    /* Job listings */
+    .job-listing {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .job-listing li {
+      background: #2a2a3a;
+      margin-bottom: 15px;
+      padding: 15px 20px;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+      cursor: default;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .job-listing li:hover {
+      background: #2575fc;
+    }
+    .job-info {
+      max-width: 80%;
+    }
+    .job-listing li strong {
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .job-listing li span {
+      display: block;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+    .apply-btn {
+      background-color: #2575fc;
+      border: none;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      flex-shrink: 0;
+    }
+    .apply-btn:hover {
+      background-color: #66ccff;
+      color: #000;
+    }
+    /* Free courses */
+    #courseSearch {
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+      outline: none;
+    }
+    #courseSearch:focus {
+      outline: 2px solid #2575fc;
+      background: #eaf2ff;
+      color: #000;
+    }
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 20px;
+    }
+    .course-card {
+      background: #2a2a3a;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 0 12px rgba(37, 117, 252, 0.5);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .course-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #2575fc;
+    }
+    .course-card iframe {
+      border-radius: 8px;
+      margin-top: 10px;
+      width: 100%;
+      height: 160px;
+    }
+    .course-card a {
+      margin-top: 15px;
+      color: #66ccff;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .course-card a:hover {
+      color: #2575fc;
+      text-decoration: underline;
+    }
+    /* Flash updates */
+    .flash-updates {
+      background: #1e1e28;
+      padding: 15px 20px;
+      border-radius: 8px;
+      font-size: 1rem;
+      color: #f0f0f0;
+      height: 80px;
+      overflow-y: auto;
+      box-shadow: 0 0 12px #2575fc;
+    }
+    /* Contact section */
+    #contact {
+      font-size: 1rem;
+      color: #ccc;
+      line-height: 1.6;
+    }
+    #contact h2 {
+      color: #2575fc;
+    }
+    #contact p {
+      margin: 10px 0;
+    }
+    /* Responsive */
+    @media(max-width: 600px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      section h2 {
+        font-size: 1.4rem;
+      }
+      .job-listing li {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .apply-btn {
+        margin-top: 10px;
+        width: 100%;
+      }
+      .job-info {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#jobs">Jobs</a></li>
+      <li><a href="#courses">Courses</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="container" id="home">
+    <header>
+      <h1>Welcome to Your Dashboard</h1>
+      <p>Access latest jobs, free courses, and updates below</p>
+    </header>
+  </div>
+
+  <div class="container" id="jobs">
+    <section>
+      <h2>Job Listings</h2>
+      <ul class="job-listing" id="jobList">
+        <li>
+          <div class="job-info">
+            <strong>Data Analyst</strong>
+            <span>Company: TCS | Location: Remote | Experience: 1-3 years</span>
+          </div>
+          <button class="apply-btn" onclick="alert('Apply functionality coming soon!')">Apply Now</button>
+        </li>
+        <li>
+          <div class="job-info">
+            <strong>Machine Learning Engineer</strong>
+            <span>Company: Infosys | Location: Bangalore | Experience: 2-4 years</span>
+          </div>
+          <button class="apply-btn" onclick="alert('Apply functionality coming soon!')">Apply Now</button>
+        </li>
+        <li>
+          <div class="job-info">
+            <strong>Data Scientist Intern</strong>
+            <span>Company: Accenture | Location: Hyderabad | Experience: Internship</span>
+          </div>
+          <button class="apply-btn" onclick="alert('Apply functionality coming soon!')">Apply Now</button>
+        </li>
+        <li>
+          <div class="job-info">
+            <strong>Big Data Engineer</strong>
+            <span>Company: Wipro | Location: Pune | Experience: 3-5 years</span>
+          </div>
+          <button class="apply-btn" onclick="alert('Apply functionality coming soon!')">Apply Now</button>
+        </li>
+        <li>
+          <div class="job-info">
+            <strong>AI Researcher</strong>
+            <span>Company: IBM | Location: Bangalore | Experience: 5+ years</span>
+          </div>
+          <button class="apply-btn" onclick="alert('Apply functionality coming soon!')">Apply Now</button>
+        </li>
+        <li>
+          <div class="job-info">
+            <strong>Business Intelligence Analyst</strong>
+            <span>Company: Capgemini | Location: Mumbai | Experience: 2-4 years</span>
+          </div>
+          <button class="apply-btn" onclick="alert('Apply functionality coming soon!')">Apply Now</button>
+        </li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="container" id="courses">
+    <section>
+      <h2>Free Courses</h2>
+      <input type="text" id="courseSearch" placeholder="Search courses..." aria-label="Search courses" />
+      <div class="courses-grid" id="coursesGrid">
+        <!-- Course cards inserted by JS -->
+      </div>
+    </section>
+  </div>
+
+  <div class="container" id="contact">
+    <section>
+      <h2>Contact Us</h2>
+      <p><strong>Email:</strong> chandanaindu@datasciencehub.com</p>
+      <p><strong>Phone:</strong> +91 9059562217</p>
+      <p><strong>Address:</strong> IARE, Hyderabad, India</p>
+      <p>Feel free to reach out for any queries or support regarding jobs or courses.</p>
+    </section>
+  </div>
+
+  <div class="container" id="updates">
+    <section>
+      <h2>Flash Updates</h2>
+      <div class="flash-updates" id="flashUpdates">
+        Loading latest updates...
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const courses = [
+      { title: "Python for Data Science", ytId: "rfscVS0vtbw", url: "https://www.youtube.com/watch?v=rfscVS0vtbw" },
+      { title: "Machine Learning Basics", ytId: "GwIo3gDZCVQ", url: "https://www.youtube.com/watch?v=GwIo3gDZCVQ" },
+      { title: "SQL Tutorial", ytId: "HXV3zeQKqGY", url: "https://www.youtube.com/watch?v=HXV3zeQKqGY" },
+      { title: "Deep Learning with TensorFlow", ytId: "tPYj3fFJGjk", url: "https://www.youtube.com/watch?v=tPYj3fFJGjk" },
+      { title: "Data Visualization with Tableau", ytId: "7kcePMN9-RY", url: "https://www.youtube.com/watch?v=7kcePMN9-RY" },
+      { title: "Statistics for Data Science", ytId: "xxpc-HPKN28", url: "https://www.youtube.com/watch?v=xxpc-HPKN28" },
+      { title: "Natural Language Processing (NLP)", ytId: "X2vAabgKiuM", url: "https://www.youtube.com/watch?v=X2vAabgKiuM" },
+      { title: "R Programming Tutorial", ytId: "fDRa82lxzaU", url: "https://www.youtube.com/watch?v=fDRa82lxzaU" },
+      { title: "Big Data with Hadoop", ytId: "y-wD4DBdX4Y", url: "https://www.youtube.com/watch?v=y-wD4DBdX4Y" },
+      { title: "Introduction to Cloud Computing", ytId: "3hTh4_VxqxI", url: "https://www.youtube.com/watch?v=3hTh4_VxqxI" },
+      { title: "Data Science Career Guide", ytId: "ua-CiDNNj30", url: "https://www.youtube.com/watch?v=ua-CiDNNj30" },
+      { title: "Advanced Python Programming", ytId: "HGOBQPFzWKo", url: "https://www.youtube.com/watch?v=HGOBQPFzWKo" }
+    ];
+
+    const coursesGrid = document.getElementById('coursesGrid');
+    const searchInput = document.getElementById('courseSearch');
+
+    function displayCourses(courseList) {
+      coursesGrid.innerHTML = '';
+      if(courseList.length === 0) {
+        coursesGrid.innerHTML = '<p style="color:#ccc;">No courses found.</p>';
+        return;
+      }
+      courseList.forEach(course => {
+        const card = document.createElement('div');
+        card.className = 'course-card';
+        card.innerHTML = `
+          <h3>${course.title}</h3>
+          <iframe src="https://www.youtube.com/embed/${course.ytId}" title="${course.title}" frameborder="0" allowfullscreen></iframe>
+          <a href="${course.url}" target="_blank" rel="noopener">Watch on YouTube</a>
+        `;
+        coursesGrid.appendChild(card);
+      });
+    }
+
+    searchInput.addEventListener('input', function() {
+      const query = this.value.toLowerCase();
+      const filtered = courses.filter(c => c.title.toLowerCase().includes(query));
+      displayCourses(filtered);
+    });
+
+    // Initial display
+    displayCourses(courses);
+
+    // Flash updates
+    const updates = [
+      "New job posted: Senior Data Engineer at BigData Inc.",
+      "Upcoming webinar on AI Ethics this Friday.",
+      "Free course added: Advanced Python Programming.",
+      "Platform maintenance scheduled for Sunday 12 AM - 2 AM.",
+      "New blog post: Top 10 Data Science Interview Questions."
+    ];
+
+    const flashUpdatesDiv = document.getElementById('flashUpdates');
+    let index = 0;
+    function showUpdate() {
+      flashUpdatesDiv.textContent = updates[index];
+      index = (index + 1) % updates.length;
+    }
+    showUpdate();
+    setInterval(showUpdate, 5000);
+  </script>
+</body>
+</html>
